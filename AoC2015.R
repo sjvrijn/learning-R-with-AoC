@@ -1,5 +1,5 @@
 day1 <- function() {
-    instructions <- scan(file="input1.txt", what=character()) 
+    instructions <- scan(file="input1.txt", what=character())
     x <- strsplit(instructions, "")[[1]]
     floor <- 0
     character_position <- 0
@@ -12,8 +12,7 @@ day1 <- function() {
             floor <- floor - 1
         }
         if (!basement_found & floor == -1) {
-            print("basement found at character")
-            print(character_position)
+            print(c("basement found at character", character_position))
             basement_found <- TRUE
         }
     }
