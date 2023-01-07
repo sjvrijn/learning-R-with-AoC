@@ -40,5 +40,43 @@ day2 <- function() {
     print(c(wrapping_paper,ribbon))
 }
 
+day3 <- function() {
+    directions <- strsplit(scan(file="input3.txt", what=character()), "")[[1]]
+    location <- c(0,0)
+    visited <- c(list(location))
+    for (d in directions) {
+        if (d == "^") {
+            location <- location + c(1,0)
+        } else if (d == ">") {
+            location <- location + c(0,1)
+        } else if (d == "v") {
+            location <- location + c(-1,0)
+        } else if (d == "<") {
+            location <- location + c(0,-1)
+        }
+        visited <- union(visited, c(list(location)))
+    }
+    print(length(visited))
+    
+    santas <- array(c(0,0,0,0), dim=c(2,2))
+    visited <- c(list(c(0,0)))
+    which <- 1  # to switch between 1 and 2
+    for (d in directions) {
+        if (d == "^") {
+            santas[which,] <- santas[which,] + c(1,0)
+        } else if (d == ">") {
+            santas[which,] <- santas[which,] + c(0,1)
+        } else if (d == "v") {
+            santas[which,] <- santas[which,] + c(-1,0)
+        } else if (d == "<") {
+            santas[which,] <- santas[which,] + c(0,-1)
+        }
+        visited <- union(visited, c(list(santas[which,])))
+        which <- 3-which
+    }
+    print(length(visited))
+}
+
 day1()
 day2()
+day3()
