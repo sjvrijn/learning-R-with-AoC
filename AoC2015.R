@@ -1,3 +1,5 @@
+library(digest)
+
 day1 <- function() {
     instructions <- scan(file="input1.txt", what=character())
     x <- strsplit(instructions, "")[[1]]
@@ -77,6 +79,32 @@ day3 <- function() {
     print(length(visited))
 }
 
+day4 <- function() {
+    secret_key <- scan(file="input4.txt", what=character())
+
+    # Test cases
+    full_key <- paste("abcdef", as.character(609043), sep="")
+    print(digest(full_key, algo="md5", serialize=F))
+    full_key <- paste("pqrstuv", as.character(1048970), sep="")
+    print(digest(full_key, algo="md5", serialize=F))
+
+    number <- 0
+    while (TRUE) {
+        full_key <- paste(secret_key, as.character(number), sep="")
+        hash <- digest(full_key, algo="md5", serialize=F)
+        hash_chars <- strsplit(hash, "")[[1]]
+        if (all(hash_chars[1:5] == c("0", "0", "0", "0", "0"))) {
+            print(paste(number, full_key, hash))
+            if (hash_chars[6] == "0") {
+                break
+            }
+        }
+        number <- number + 1
+    }
+    print(number)
+}
+
 day1()
 day2()
 day3()
+day4()
