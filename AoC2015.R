@@ -104,7 +104,22 @@ day4 <- function() {
     print(number)
 }
 
+day5 <- function() {
+    # Read file
+    
+    # for string in file:
+        # if:
+        # - has 3 vowels?
+        # - has double letter?
+        # - does not contain naughty substring?
+        # increase count
+    # endfor
+    
+    # print count
+}
+
 day1()
 day2()
 day3()
 day4()
+day5()
