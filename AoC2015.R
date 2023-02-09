@@ -105,17 +105,36 @@ day4 <- function() {
 }
 
 day5 <- function() {
-    # Read file
+    strings <- scan(file="input5.txt", what=character())
+    num_nice <- 0
+    for (string in strings) {
+        string_vec <- strsplit(string, "")[[1]]
+        prev_char <- 0
+        num_vowels <- 0
+        double_letter <- FALSE
+        is_naughty <- FALSE
+        for (char in string_vec) {
+            if ((prev_char == 'a' && char == 'b') ||
+                (prev_char == 'c' && char == 'd') ||
+                (prev_char == 'p' && char == 'q') ||
+                (prev_char == 'x' && char == 'y')) {
+                is_naughty <- TRUE
+                break
+            }
+            if (prev_char == char) {
+                double_letter <- TRUE
+            }
+            if (char %in% c('a', 'e', 'i', 'o', 'u')) {
+                num_vowels <- num_vowels + 1
+            }
+            prev_char <- char
+        }
+        if (!is_naughty && double_letter && num_vowels >= 3) {
+            num_nice <- num_nice + 1
+        }
+    }
     
-    # for string in file:
-        # if:
-        # - has 3 vowels?
-        # - has double letter?
-        # - does not contain naughty substring?
-        # increase count
-    # endfor
-    
-    # print count
+    print(num_nice)
 }
 
 day1()
