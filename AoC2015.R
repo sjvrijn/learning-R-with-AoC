@@ -1,4 +1,5 @@
 library(digest)
+library(stringr)
 
 day1 <- function() {
     instructions <- scan(file="input1.txt", what=character())
@@ -105,17 +106,26 @@ day4 <- function() {
 }
 
 day5 <- function() {
-    # Read file
-    
-    # for string in file:
-        # if:
-        # - has 3 vowels?
-        # - has double letter?
-        # - does not contain naughty substring?
-        # increase count
-    # endfor
-    
-    # print count
+    naughty_substrings = c('ab', 'cd', 'pq', 'xy')
+    vowels = c('a', 'e', 'i', 'o','u')
+    strings <- scan(file="input5.txt", what=character())
+    num_nice <- 0
+    for (string in strings) {
+        if (any(str_detect(string, naughty_substrings))) {
+            next
+        } else if (sum(str_count(string, vowels)) < 3) {
+            next
+        } else {
+            len = nchar(string)
+            except_last <- strsplit(substr(string, 1, len-1), "")[[1]]
+            except_first <- strsplit(substr(string, 2, len), "")[[1]]
+            if (!any(except_first == except_last)) {
+                next
+            }
+        }
+        num_nice <- num_nice + 1
+    }
+    print(num_nice)
 }
 
 day1()
